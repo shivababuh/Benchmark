@@ -5,19 +5,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(value = "/xss-00/BenchmarkTest02744")
-public class BenchmarkTest02744 extends HttpServlet {
+public class BenchmarkTest02744 extends Intermediate {
     private static final long serialVersionUID = 1L;
 
-    @Override
+    /*@Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
-    }
+    }*/
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +30,7 @@ public class BenchmarkTest02744 extends HttpServlet {
                         "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(param);
         boolean b = m.find();
-        String sanitizeParam = goodSanitationForTag(param);
+        String sanitizeParam = newSanitizedValue(param);
 
         String htmlRespone = "<html><head></head><body><p>";
         if (param != null && param.trim().length() != 0 && b) {
@@ -43,10 +42,10 @@ public class BenchmarkTest02744 extends HttpServlet {
         response.getWriter().println(htmlRespone);
     }
 
-    protected String goodSanitationForTag(String parameter) {
+    /*protected String newSanitizedValue(String parameter) {
         parameter = parameter.replaceAll("&", "&amp;");
         parameter = parameter.replaceAll("<", "&lt;");
         parameter = parameter.replaceAll(">", "&gt;");
         return parameter;
-    }
+    }*/
 }

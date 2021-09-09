@@ -19,49 +19,38 @@ package org.owasp.benchmark.testcode;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(value = "/xss-00/BenchmarkTest02742")
-public class BenchmarkTest02742 extends Intermediate {
+public class Intermediate extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-
-    /*@Override
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
-    }*/
-
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        response.setHeader("X-XSS-Protection", "0");
-
-        String param = request.getParameter("email");
-        if (param == null) param = "";
-        String sanitizeParam = sanitizeTag(param);
-
-        String htmlResponse = "<html>";
-        htmlResponse +=
-                "<head></head><body><div class=\"col-sm-4\">\n"
-                        + " <input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\""
-                        + " name='password' th:value='"
-                        + sanitizeParam
-                        + "'/>"
-                        + " </div></body>";
-        htmlResponse += "</html>";
-
-        response.getWriter().println(htmlResponse);
     }
 
-    /*protected String goodSanitationForTag(String parameter) {
+    protected String sanitizeAttribute(String parameter) {
+        String parameter1 = parameter;
+        parameter1 = parameter1.replaceAll("'", "&#39;");
+        parameter1 = parameter1.replaceAll("\"", "&quot;");
+        parameter1 = parameter1.replaceAll("&", "&amp;");
+        return parameter1;
+    }
+
+    protected String sanitizeTag(String parameter) {
         String parameter1 = parameter;
         parameter1 = parameter1.replaceAll("&", "&amp;");
         parameter1 = parameter1.replaceAll("<", "\\u003C");
         parameter1 = parameter1.replaceAll(">", "\\u003E");
         return parameter1;
-    }*/
+    }
+
+    protected String newSanitizedValue(String parameter) {
+        parameter = parameter.replaceAll("&", "&amp;");
+        parameter = parameter.replaceAll("<", "&lt;");
+        parameter = parameter.replaceAll(">", "&gt;");
+        return parameter;
+    }
 }

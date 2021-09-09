@@ -20,20 +20,19 @@ package org.owasp.benchmark.testcode;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(value = "/xss-00/BenchmarkTest02745")
-public class BenchmarkTest02745 extends HttpServlet {
+public class BenchmarkTest02745 extends Intermediate {
 
     private static final long serialVersionUID = 1L;
 
-    @Override
+    /*@Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
-    }
+    }*/
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -43,7 +42,7 @@ public class BenchmarkTest02745 extends HttpServlet {
 
         String param = request.getParameter("email");
         if (param == null) param = "";
-        String sanitizeParam = goodSanitationForIdAttribute(param);
+        String sanitizeParam = sanitizeAttribute(param);
 
         String htmlResponse = "<html>";
         htmlResponse += "<head></head><body>" + sanitizeParam + "</body>";
@@ -52,11 +51,11 @@ public class BenchmarkTest02745 extends HttpServlet {
         response.getWriter().println(htmlResponse);
     }
 
-    protected String goodSanitationForIdAttribute(String parameter) {
+    /*protected String goodSanitationForIdAttribute(String parameter) {
         String parameter1 = parameter;
         parameter1 = parameter1.replaceAll("'", "&#39;");
         parameter1 = parameter1.replaceAll("\"", "&quot;");
         parameter1 = parameter1.replaceAll("&", "&amp;");
         return parameter1;
-    }
+    }*/
 }
