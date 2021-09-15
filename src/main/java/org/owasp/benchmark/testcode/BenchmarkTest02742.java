@@ -24,15 +24,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(value = "/xss-00/BenchmarkTest02742")
-public class BenchmarkTest02742 extends Intermediate {
+public class BenchmarkTest02742 extends SanitizingHttpServlet {
 
     private static final long serialVersionUID = 1L;
-
-    /*@Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doPost(request, response);
-    }*/
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -56,12 +50,4 @@ public class BenchmarkTest02742 extends Intermediate {
 
         response.getWriter().println(htmlResponse);
     }
-
-    /*protected String goodSanitationForTag(String parameter) {
-        String parameter1 = parameter;
-        parameter1 = parameter1.replaceAll("&", "&amp;");
-        parameter1 = parameter1.replaceAll("<", "\\u003C");
-        parameter1 = parameter1.replaceAll(">", "\\u003E");
-        return parameter1;
-    }*/
 }

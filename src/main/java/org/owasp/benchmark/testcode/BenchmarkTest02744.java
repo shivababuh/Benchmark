@@ -9,14 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(value = "/xss-00/BenchmarkTest02744")
-public class BenchmarkTest02744 extends Intermediate {
+public class BenchmarkTest02744 extends SanitizingHttpServlet {
     private static final long serialVersionUID = 1L;
-
-    /*@Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doPost(request, response);
-    }*/
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,11 +35,4 @@ public class BenchmarkTest02744 extends Intermediate {
         htmlRespone += "</p></body></html>";
         response.getWriter().println(htmlRespone);
     }
-
-    /*protected String newSanitizedValue(String parameter) {
-        parameter = parameter.replaceAll("&", "&amp;");
-        parameter = parameter.replaceAll("<", "&lt;");
-        parameter = parameter.replaceAll(">", "&gt;");
-        return parameter;
-    }*/
 }
